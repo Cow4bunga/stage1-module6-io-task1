@@ -1,9 +1,6 @@
 package com.epam.mjc.io;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class FileReader {
     public Profile getDataFromFile(File file) {

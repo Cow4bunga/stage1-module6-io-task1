@@ -8,21 +8,21 @@ import java.util.Map;
 public class FileReader {
 
     public Profile getDataFromFile(File file) {
-        BufferedReader inputStream=null;
-        Profile profile=new Profile();
+        BufferedReader inputStream = null;
+        Profile profile = new Profile();
 
         try {
-            inputStream=new BufferedReader(new java.io.FileReader(file));
+            inputStream = new BufferedReader(new java.io.FileReader(file));
             String str;
-            Map<String,String> map=new HashMap<>();
+            Map<String, String> map = new HashMap<>();
 
-            while((str=inputStream.readLine())!=null){
-                String[] splitted=str.split(": ");
-                map.put(splitted[0],splitted[1]);
+            while ((str = inputStream.readLine()) != null) {
+                String[] tokens = str.split(": ");
+                map.put(tokens[0], tokens[1]);
             }
 
             for (String s : map.keySet()) {
-                switch (s){
+                switch (s) {
                     case "Name":
                         profile.setName(map.get(s));
                         break;
@@ -42,8 +42,8 @@ public class FileReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(inputStream!=null){
+        } finally {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
@@ -54,9 +54,4 @@ public class FileReader {
         return profile;
     }
 
-//    public static void main(String[] args) {
-//        FileReader fileReader=new FileReader();
-//        Profile profile=fileReader.getDataFromFile(new File("src/main/resources/Profile.txt"));
-//        System.out.println(profile);
-//    }
 }

@@ -10,7 +10,6 @@ public class FileReader {
             String[] tokens;
             while ((str = inputStream.readLine()) != null) {
                 tokens = str.split(": ");
-                System.out.println(tokens[0] + " " + tokens[1]);
                 switch (tokens[0]) {
                     case "Name":
                         profile.setName(tokens[1]);

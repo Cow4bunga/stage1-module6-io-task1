@@ -6,34 +6,26 @@ import java.util.Map;
 
 
 public class FileReader {
-
     public Profile getDataFromFile(File file) {
-        BufferedReader inputStream = null;
         Profile profile = new Profile();
-
-        try {
-            inputStream = new BufferedReader(new java.io.FileReader(file));
+        try (BufferedReader inputStream = new BufferedReader(new java.io.FileReader(file))) {
             String str;
-            Map<String, String> map = new HashMap<>();
-
+            String[] tokens;
             while ((str = inputStream.readLine()) != null) {
-                String[] tokens = str.split(": ");
-                map.put(tokens[0], tokens[1]);
-            }
-
-            for (String s : map.keySet()) {
-                switch (s) {
+                tokens = str.split(": ");
+                System.out.println(tokens[0] + " " + tokens[1]);
+                switch (tokens[0]) {
                     case "Name":
-                        profile.setName(map.get(s));
+                        profile.setName(tokens[1]);
                         break;
                     case "Email":
-                        profile.setEmail(map.get(s));
+                        profile.setEmail(tokens[1]);
                         break;
                     case "Age":
-                        profile.setAge(Integer.parseInt(map.get(s)));
+                        profile.setAge(Integer.parseInt(tokens[1]));
                         break;
                     case "Phone":
-                        profile.setPhone(Long.parseLong(map.get(s)));
+                        profile.setPhone(Long.parseLong(tokens[1]));
                         break;
                     default:
                         System.out.println("Illegal input!");
@@ -42,16 +34,7 @@ public class FileReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return profile;
     }
-
 }
